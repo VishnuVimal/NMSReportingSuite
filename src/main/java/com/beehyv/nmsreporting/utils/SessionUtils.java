@@ -37,7 +37,6 @@ public class SessionUtils {
         if ( !currentUser.isAuthenticated() ) {
             NMSRepAuthenticationToken token = new NMSRepAuthenticationToken(userId, password);
             token.setRememberMe(true);
-            token.setLoginType(loginType);
             session.setAttribute("role", role);
             currentUser.login(token);
             ModelMap mp = new ModelMap();
