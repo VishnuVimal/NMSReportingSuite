@@ -32,9 +32,20 @@ public class UserController {
         return userService.getListOfUsers();
     }
 
-    @RequestMapping(value = {"/list/{userRole}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list/role/{userRole}"}, method = RequestMethod.GET)
     public @ResponseBody List<User> getUsersByRole(@PathVariable("userRole") String userRole) {
         return userService.getListOfUsersByRole(userRole);
+    }
+
+    @RequestMapping(value = {"/list/level/{hierarchyLevel}"}, method = RequestMethod.GET)
+    public @ResponseBody List<User> getUsersByLevel(@PathVariable("hierarchyLevel") String hierarchyLevel) {
+        return userService.getListOfUsersByLevel(hierarchyLevel);
+    }
+
+    @RequestMapping(value = {"/list/access/{hierarchyLevel}/{userRole}"})
+    public @ResponseBody List<User> getUsersByAccessPermission(@PathVariable("hierarchyLevel") String hierarchyLevel,
+                                                               @PathVariable("userRole") String userRole) {
+        return userService.getListOfUsersByAccessPermissions(hierarchyLevel, userRole);
     }
 
     @RequestMapping(value = {"/create-user"}, method = RequestMethod.POST)

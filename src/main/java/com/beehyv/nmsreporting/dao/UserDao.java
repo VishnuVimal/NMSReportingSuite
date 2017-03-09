@@ -14,15 +14,15 @@ public interface UserDao {
 
     public User findByEmailId(String emailId);
 
-    public List<User> getAllUsers();
+    public List<User> getAllActiveUsers();
 
-    public List<User> getUsersByRole(String userRole);
+    public List<User> getActiveUsersByRole(String userRole);
 
-    public List<User> getUsersByHierarchyLevel(String hierarchyLevel);
+    public List<User> getActiveUsersByHierarchyLevel(String hierarchyLevel);
+
+    public List<User> getActiveUsersByAccessPermissions(String hierarchyLevel, String userRole);
 
     public List<User> getUsersByAccountStatus(String accountStatus);
 
     public void saveUser(User user);
-
-    public void deleteUser(User user);
 }

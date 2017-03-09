@@ -16,6 +16,10 @@ public interface UserService {
 
     public List<User> getListOfUsersByRole(String userRole);
 
+    public List<User> getListOfUsersByLevel(String hierarchyLevel);
+
+    public List<User> getListOfUsersByAccessPermissions(String hierarchyLevel, String userRole);
+
     public void createNewUser(User user);
 
     public void updateExistingUser(User user);

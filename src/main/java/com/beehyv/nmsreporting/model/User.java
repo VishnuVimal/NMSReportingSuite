@@ -15,7 +15,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "USER_DETAILS")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="reference_level")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +53,6 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "created_by")
-//    @JsonIgnore
     private User createdByUserId;
 
 

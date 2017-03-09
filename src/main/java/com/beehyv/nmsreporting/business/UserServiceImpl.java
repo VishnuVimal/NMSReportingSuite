@@ -2,6 +2,7 @@ package com.beehyv.nmsreporting.business;
 
 import com.beehyv.nmsreporting.dao.UserDao;
 import com.beehyv.nmsreporting.model.User;
+import com.beehyv.nmsreporting.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,13 +33,20 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getListOfUsers() {
-        return userDao.getAllUsers();
+        return userDao.getAllActiveUsers();
     }
 
     public List<User> getListOfUsersByRole(String userRole) {
-        return userDao.getUsersByRole(userRole);
+        return userDao.getActiveUsersByRole(userRole);
     }
 
+    public List<User> getListOfUsersByLevel(String hierarchyLevel) {
+        return userDao.getActiveUsersByHierarchyLevel(hierarchyLevel);
+    }
+
+    public List<User> getListOfUsersByAccessPermissions(String hierarchyLevel, String userRole) {
+        return userDao.getActiveUsersByAccessPermissions(hierarchyLevel, userRole);
+    }
     public void createNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.saveUser(user);
@@ -65,7 +73,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteExistingUser(User user) {
-        userDao.deleteUser(user);
+        User entity = userDao.findByUserId(user.getUserId());
+        if(entity != null) {
+            entity.setAccountStatus(Constants.AccountStatus.INACTIVE);
+        }
     }
 
     public boolean isUserNameUnique(Integer userId, String userName) {
